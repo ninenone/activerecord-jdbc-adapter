@@ -291,6 +291,7 @@ module ArJdbc
     def max_identifier_length
       @max_identifier_length ||= query_value("SHOW max_identifier_length", "SCHEMA").to_i
     end
+    alias_method :max_identifier_length, :table_alias_length
     alias table_alias_length max_identifier_length
     alias index_name_length max_identifier_length
 
@@ -319,7 +320,7 @@ module ArJdbc
       end
       select_value("SELECT pg_advisory_unlock(#{lock_id})")
     end
-    
+
     # Returns the configured supported identifier length supported by PostgreSQL,
     # or report the default of 63 on PostgreSQL 7.x.
     def max_identifier_length
